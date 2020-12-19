@@ -20,21 +20,6 @@ void freedp(char **a)
 }
 
 /**
- *arlen - returns the lenght of a string array
- *@a: pointer to the first string
- *Return: lenght of the array
- */
-int arlen(char **a)
-{
-	int i = 0;
-
-	if (!a)
-		return (i);
-	while (*a)
-		i++, a++;
-	return (i);
-}
-/**
 *trims - trims space in front of a string and more than one spaces in between
 *@str: pointer to the string to be edited
 *@strt: string to be trimed
@@ -119,4 +104,20 @@ void *srealloc(void *ptr, unsigned int size)
 	pointer = (void *)_pointer;
 	free(ptr);
 	return (pointer);
+}
+
+/**
+*freedll - frees a doubly linked list
+*@head: a pointer to the head of the doubly linked list
+*/
+void freedll(stack_t *head)
+{
+	stack_t *tmp = NULL;
+
+	while (head)
+	{
+		tmp = head->next;
+		free(head);
+		head = tmp;
+	}
 }
