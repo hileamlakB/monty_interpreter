@@ -80,6 +80,8 @@ int main(int argc, char **argv)
 
 	if (line)
 		free(line);
+	if (head)
+		freedll(head);
 	/*Close the file before exiting*/
 	fclose(fd);
 	exit(EXIT_SUCCESS);

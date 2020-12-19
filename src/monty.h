@@ -12,11 +12,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+/*global variables*/
+char *data_mod;
 
-#include "utils/utils.h"
-#include "interpreter/interpreter.h"
-#include "lexer/lexer.h"
-#include "loader/loader.h"
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -25,7 +23,6 @@
  * @next: points to the next element of the stack (or queue)
  *
  * Description: doubly linked list node structure
- * for stack, queues, LIFO, FIFO Holberton project
  */
 typedef struct stack_s
 {
@@ -35,33 +32,67 @@ typedef struct stack_s
 } stack_t;
 
 /**
+ * struct code_args_s -  argument information
+ * @args: a list of the aguments
+ * @argc: number of arguments to passed
+ * 0 - means none,
+ * 1 - means 1,
+ * 2 - more than one
+ */
+typedef struct code_args_s
+{
+	int args;
+	int argc;
+}code_args_t;
+
+/**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
  * @f: function to handle the opcode
  *
- * Description: opcode and its function
- * for stack, queues, LIFO, FIFO Holberton project
+ * Description: opcode and its respctive function
  */
 typedef struct instruction_s
 {
 	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+	void (*func)(stack_t **, unsigned int, code_args_t);
 } instruction_t;
 
-/**
- *struct command_s - a linked list node to hold a command
- *@cmd: command string
- *@args: arguments for the command
- *@next: a pointer to the next command node
- */
-typedef struct command_s
-{
-	char *cmd;
-	int args[2];
-	struct command_s *next;
 
-}command_t;
+/*loader*/
+FILE *sopen(char *);
 
+/*memory_utils*/
+void freedp(char **);
+void trims(char **, char *);
+void *smalloc(unsigned int);
+void *srealloc(void *, unsigned int);
+char *_strdup(char *);
+void freedll(stack_t *);
+
+
+/*Interpreter funnction*/
+void (*get_op_func(char *))(stack_t **, unsigned int, code_args_t);
+void interpret(char *, int, stack_t **);
+
+/*Interpreter helpers*/
+void push(stack_t **, unsigned int, code_args_t);
+void pall(stack_t **, unsigned int, code_args_t);
+void pint(stack_t **, unsigned int, code_args_t);
+void pop(stack_t **, unsigned int, code_args_t);
+void swap(stack_t **, unsigned int, code_args_t);
+void add(stack_t **, unsigned int, code_args_t);
+void nop(stack_t **, unsigned int, code_args_t);
+void sub(stack_t **, unsigned int, code_args_t);
+void div_m(stack_t **, unsigned int, code_args_t);
+void mult(stack_t **, unsigned int, code_args_t);
+void mod(stack_t **, unsigned int, code_args_t);
+void pchar(stack_t **, unsigned int, code_args_t);
+void pstr(stack_t **, unsigned int, code_args_t);
+void rotl(stack_t **, unsigned int, code_args_t);
+void rotr(stack_t **, unsigned int, code_args_t);
+void queue(stack_t **, unsigned int, code_args_t);
+void stack(stack_t **, unsigned int, code_args_t);
 
 
 #endif /*MONTY*/
