@@ -133,6 +133,12 @@ void rotl(stack_t **head, unsigned int line_number, code_args_t token)
 {
 	stack_t *_head = *head, *top = *head, *second = NULL;
 
+	/*Handle incase uncessary arguments are passed*/
+	if (token.argc != 0)
+	{
+		dprintf(2, "L%u: usage: rotl\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 	if(!_head)
 		return;
 	/*Get the second top element*/

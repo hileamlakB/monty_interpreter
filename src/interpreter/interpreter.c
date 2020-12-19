@@ -1,4 +1,4 @@
-#include "monty.h"
+#include "../monty.h"
 
 /**
  * get_op_func -  selects the correct function to
@@ -11,7 +11,8 @@ void (*get_op_func(char *command))(stack_t **, unsigned int, code_args_t)
 	instruction_t ops[] = {
 		{"push", push},
 		{"pall", pall},
-		{"pint", pop},
+		{"pint", pint},
+		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
 		{"nop", nop},
@@ -27,7 +28,7 @@ void (*get_op_func(char *command))(stack_t **, unsigned int, code_args_t)
 		{"stack", stack},
 	};
 	int i = 0;
-	const int num_of_cmds = 16; /*Number of commands in ops*/
+	const int num_of_cmds = 17; /*number of commands in ops*/
 
 	/*Handle incase the line is comment*/
 	if (command[0] == '#')
@@ -61,8 +62,17 @@ void interpret(char *line, int line_number, stack_t **head)
 	void (*func)(stack_t **, unsigned int, code_args_t) = NULL;
 	code_args_t token;
 
+	/*Remove uncessary white spaces from line and store it in cmd*/
 	trims(&cmd, line);
 	token.argc = 0;
+
+	/*
+	* remove the new line character at the end of cmd
+	* if its length is more than one otherwise it means it is just a new
+	* line
+	*/
+	if (strlen(cmd) > 1)
+		cmd[strlen(cmd) - 1] = '\0';
 
 	/*Parse the command name and the arguments into the token*/
 	tmp = strtok(cmd, " ");

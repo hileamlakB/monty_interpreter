@@ -36,7 +36,7 @@ void push(stack_t **head, unsigned int line_number, code_args_t token)
 		new_node->next = _head;
 		if (_head)
 			_head->prev = new_node;
-		_head = new_node;
+		*head = new_node;
 	}
 	else if (!strcmp(data_mod, "queue"))
 	{
