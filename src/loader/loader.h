@@ -5,6 +5,6 @@
 
 
 /*loader*/
-int sopen(char *);
+FILE *sopen(char *);
 
 #endif /*LOADER*/
