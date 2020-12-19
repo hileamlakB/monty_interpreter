@@ -32,11 +32,11 @@ void trims(char **str, char *strt)
 	*new = '\0';
 	while (*_str)
 	{
-		if (*_str == ' ' && first)
+		if ((*_str == ' ' || *_str == '\t') && first)
 			_str++;
-		else if (*_str == ' ' && count)
+		else if ((*_str == ' ' || *_str == '\t') && count)
 			count++, _str++;
-		else if (*_str != ' ')
+		else if (*_str != ' ' && *_str != '\t')
 		{
 			tmp = smalloc(sizeof(char) * (strlen(new) + 3));
 			if (!tmp)
