@@ -13,7 +13,7 @@
 #include <fcntl.h>
 
 /*global variables*/
-char *data_mod;
+char data_mod[6];
 
 
 /**
@@ -43,12 +43,12 @@ typedef struct code_args_s
 {
 	int args;
 	int argc;
-}code_args_t;
+} code_args_t;
 
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
- * @f: function to handle the opcode
+ * @func: function to handle the opcode
  *
  * Description: opcode and its respctive function
  */
@@ -70,6 +70,8 @@ void *srealloc(void *, unsigned int);
 char *_strdup(char *);
 void freedll(stack_t *);
 
+/*utils.c*/
+int isint(char *);
 
 /*Interpreter funnction*/
 void (*get_op_func(char *))(stack_t **, unsigned int, code_args_t);
@@ -81,16 +83,19 @@ void pall(stack_t **, unsigned int, code_args_t);
 void pint(stack_t **, unsigned int, code_args_t);
 void pop(stack_t **, unsigned int, code_args_t);
 void swap(stack_t **, unsigned int, code_args_t);
+
 void add(stack_t **, unsigned int, code_args_t);
 void nop(stack_t **, unsigned int, code_args_t);
 void sub(stack_t **, unsigned int, code_args_t);
 void div_m(stack_t **, unsigned int, code_args_t);
 void mult(stack_t **, unsigned int, code_args_t);
+
 void mod(stack_t **, unsigned int, code_args_t);
 void pchar(stack_t **, unsigned int, code_args_t);
 void pstr(stack_t **, unsigned int, code_args_t);
 void rotl(stack_t **, unsigned int, code_args_t);
 void rotr(stack_t **, unsigned int, code_args_t);
+
 void queue(stack_t **, unsigned int, code_args_t);
 void stack(stack_t **, unsigned int, code_args_t);
 

@@ -16,7 +16,8 @@
  * It first takes a file as a command line argument, and tries to open in it.
  * If it successful, it statically checks if there is no syntax bug in the
  * language while putting the commands in a linked list.
- * If lexing and loading to a linked list was successful then the interpreter is called
+ * If lexing and loading to a linked list was successful then the
+ * interpreter is called.
  * The interpreter then takes the linked list and executes each command.
  * The list of the commands and what they do is documented in the man page.
  */
@@ -38,7 +39,7 @@
  * @argc: argument count
  * @argv: argument list
  * Return: 0 on success, and error messages as specified
- in error.h
+ * in error.h
  */
 int main(int argc, char **argv)
 {
@@ -48,7 +49,6 @@ int main(int argc, char **argv)
 	size_t buffsize = 0;
 	int reading = 1, line_number = 1;
 	stack_t *head = NULL;
-	extern char *data_mod;
 
 	/*check if there is correct argument number*/
 	if (argc != 2)
@@ -56,16 +56,13 @@ int main(int argc, char **argv)
 		dprintf(2, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-
 	/*safely open the file*/
 	fd = sopen(argv[1]);
 
 	/*Set the default data structure mode to stack*/
-	data_mod = "stack";
+	strcpy(data_mod, "stack");
 
-	/*Read one line at a time*/
-	/*Check if it is correct*/
-	/*Execute that line*/
+	/*Read one line at a time, and execute the instruction*/
 	while (reading)
 	{
 		read_stat = getline(&line, &buffsize, fd);
@@ -77,7 +74,6 @@ int main(int argc, char **argv)
 		interpret(line, line_number, &head);
 		line_number += 1;
 	}
-
 	if (line)
 		free(line);
 	if (head)
