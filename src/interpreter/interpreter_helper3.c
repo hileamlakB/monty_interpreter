@@ -10,12 +10,8 @@ void mod(stack_t **head, unsigned int line_number, code_args_t token)
 {
 	stack_t *_head = *head, *tmp = NULL;
 
-	/*check if the no extra argument is passed*/
-	if (token.argc != 0)
-	{
-		dprintf(2, "L%u: usage: mod\n", line_number);
-		exit(EXIT_FAILURE);
-	}
+
+	(void)(token);
 
 	/*check if there are nodes to be divided*/
 	if (!_head)
@@ -38,10 +34,10 @@ void mod(stack_t **head, unsigned int line_number, code_args_t token)
 		exit(EXIT_FAILURE);
 	}
 
-	/*Find the division of the second node by the first node and store it in the second node*/
+	/*Find the division of the top two nodes and store it in the second node*/
 	_head->next->n %= _head->n;
 
-	/*Remove the top node after storing the dividend in the second and move the head*/
+	/*Remove the top node after storing and move the head*/
 	tmp = _head->next;
 	_head->next->prev = NULL;
 	free(_head);
@@ -61,12 +57,8 @@ void pchar(stack_t **head, unsigned int line_number, code_args_t token)
 
 	stack_t *_head = *head;
 
-	/*Handle incase uncessary arguments are passed*/
-	if (token.argc != 0)
-	{
-		dprintf(2, "L%u: usage: pchar\n", line_number);
-		exit(EXIT_FAILURE);
-	}
+
+	(void)(token);
 
 	/*Incase there is no node to be printed*/
 	if (!_head)
@@ -99,12 +91,8 @@ void pstr(stack_t **head, unsigned int line_number, code_args_t token)
 	stack_t *_head = *head;
 
 
-	/*Handle incase uncessary arguments are passed*/
-	if (token.argc != 0)
-	{
-		dprintf(2, "L%u: usage: pstr\n", line_number);
-		exit(EXIT_FAILURE);
-	}
+	(void)(token);
+	(void)(line_number);
 	/*
 	 *print everything in the linked list unless
 	 * it's value is a zero,
@@ -124,7 +112,9 @@ void pstr(stack_t **head, unsigned int line_number, code_args_t token)
 
 
 /**
- * rotl - rotates the stack to the top
+ * rotl - rotates the stack so that The top element of the
+ * stack becomes the last one, and the second top element of the
+ * stack becomes the first one
  * @head: double pointer to top element of the stack
  * @line_number: current line we are at in the file
  * @token: the number of arguments and the arguments themself
@@ -133,25 +123,23 @@ void rotl(stack_t **head, unsigned int line_number, code_args_t token)
 {
 	stack_t *_head = *head, *top = *head, *second = NULL;
 
-	/*Handle incase uncessary arguments are passed*/
-	if (token.argc != 0)
-	{
-		dprintf(2, "L%u: usage: rotl\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-	if(!_head)
+
+	(void)(token);
+	(void)(line_number);
+	if (!_head)
 		return;
 	/*Get the second top element*/
 	second = _head->next;
 
 	/*Go to the end of the list*/
-	while(_head->next)
+	while (_head->next)
 		_head = _head->next;
 
 	/*Bring the top to the last*/
 	_head->next = top;
 	/*set the last's previous to the proper value*/
 	top->prev = _head;
+	top->next = NULL;
 	/*set the previous of the second to NULL since it is now top*/
 	second->prev = NULL;
 	/*Make the head point to second*/

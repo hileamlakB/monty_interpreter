@@ -17,9 +17,8 @@
 void push(stack_t **head, unsigned int line_number, code_args_t token)
 {
 	stack_t *new_node, *_head = *head;
-	extern char *data_mod;
 
-	if (token.argc != 1)
+	if (token.argc < 1)
 	{
 		dprintf(2, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
@@ -41,6 +40,11 @@ void push(stack_t **head, unsigned int line_number, code_args_t token)
 	else if (!strcmp(data_mod, "queue"))
 	{
 		/*go to the end of the file*/
+		if (!_head)
+		{
+			*head = new_node;
+			return;
+		}
 		while (_head->next)
 			_head = _head->next;
 		new_node->prev = _head;
@@ -61,14 +65,8 @@ void pall(stack_t **head, unsigned int line_number, code_args_t token)
 {
 	stack_t *_head = *head;
 
-
-	/*Handle incase uncessary arguments are passed*/
-	if (token.argc != 0)
-	{
-		dprintf(2, "L%u: usage: pall\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-
+	(void)(token);
+	(void)(line_number);
 	/*
 	 *print everything in the linked list unless
 	 * it's is empty (has reached to the end)
@@ -93,12 +91,8 @@ void pint(stack_t **head, unsigned int line_number, code_args_t token)
 {
 	stack_t *_head = *head;
 
-	/*Handle incase uncessary arguments are passed*/
-	if (token.argc != 0)
-	{
-		dprintf(2, "L%u: usage: pint\n", line_number);
-		exit(EXIT_FAILURE);
-	}
+	(void)(token);
+	(void)(line_number);
 
 	/*Incase there is no node to be printed*/
 	if (!_head)
@@ -124,12 +118,8 @@ void pop(stack_t **head, unsigned int line_number, code_args_t token)
 	stack_t *_head = *head, *new_top = NULL;
 
 
-	/*Handle incase uncessary arguments are passed*/
-	if (token.argc != 0)
-	{
-		dprintf(2, "L%u: usage: pop\n", line_number);
-		exit(EXIT_FAILURE);
-	}
+	(void)(token);
+	(void)(line_number);
 
 	if (!_head)
 	{
@@ -139,7 +129,7 @@ void pop(stack_t **head, unsigned int line_number, code_args_t token)
 	new_top = _head->next;
 	if (new_top)
 		new_top->prev = NULL;
-			free(_head);
+	free(_head);
 	*head = new_top;
 
 }
@@ -155,12 +145,9 @@ void swap(stack_t **head, unsigned int line_number, code_args_t token)
 {
 	stack_t *_head = *head, *old_top = NULL, *old_second = NULL;
 
-	/*check if the no extra argument is passed*/
-	if (token.argc != 0)
-	{
-		dprintf(2, "L%u: usage: swap\n", line_number);
-		exit(EXIT_FAILURE);
-	}
+
+	(void)(token);
+	(void)(line_number);
 
 	/*check if there are nodes to be multiplied*/
 	if (!_head)
@@ -175,10 +162,15 @@ void swap(stack_t **head, unsigned int line_number, code_args_t token)
 		exit(EXIT_FAILURE);
 	}
 
+	old_top = _head;
+	old_second = _head->next;
+
 	old_top->prev = old_second;
 	old_top->next = old_second->next;
 
 	old_second->prev = NULL;
 	old_second->next = old_top;
+
+	*head = old_second;
 }
 
