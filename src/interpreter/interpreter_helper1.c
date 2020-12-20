@@ -92,7 +92,6 @@ void pint(stack_t **head, unsigned int line_number, code_args_t token)
 	stack_t *_head = *head;
 
 	(void)(token);
-	(void)(line_number);
 
 	/*Incase there is no node to be printed*/
 	if (!_head)
@@ -147,7 +146,6 @@ void swap(stack_t **head, unsigned int line_number, code_args_t token)
 
 
 	(void)(token);
-	(void)(line_number);
 
 	/*check if there are nodes to be multiplied*/
 	if (!_head)
