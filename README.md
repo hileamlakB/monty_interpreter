@@ -2,13 +2,8 @@
 
 ## Discription
 
-Monty is  ....
+Monty is  an interpreted lanaguage that only uses stacks. It is more linke brain fuck, but instead of arrays with stacks and ques.
 
-In this repostory, we try to implement ....
-
-## The algorithm
-
-FLow chart and the discription ....
 
 ## Files 
 
